@@ -22,6 +22,20 @@ class Option:
         value = value.replace('[CONTEST]', str(solved['contest_id']))
         value = value.replace('[INDEX]', solved['problem_id'])
         value = value.replace('[TITLE]', solved['problem_title'])
+        value = self.replace_char(value)
+        return value
+
+    def replace_char(self, value):
+        if self.user_info['os'] == 'Windows':
+            value = value.replace(':', '：')
+            value = value.replace('?', '？')
+        value = value.replace('/', '／')
+        value = value.replace('*', '＊')
+        value = value.replace('"', '＂')
+        value = value.replace('<', '＜')
+        value = value.replace('>', '＞')
+        value = value.replace('\\', '＼')
+        value = value.replace('|', '｜')
         return value
 
     def get_ext(self, language):
@@ -56,4 +70,5 @@ class Option:
             'Scala': '.scala',
             'JavaScript': '.js',
             'Node.js': '.js',
+            'Q#': '.qs'
         }[language]
