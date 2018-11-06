@@ -1,5 +1,6 @@
 import sys
 import os
+import platform
 from crawler import Crawler
 from option import Option
 
@@ -92,6 +93,14 @@ class Main:
 if __name__ == '__main__':
     try:
         user_info = {}
+        
+        if platform.system() == 'Windows':
+            user_info['os'] = 'Windows'
+        elif platform.system() == 'Linux':
+            user_info['os'] = 'Linux'
+        elif platform.system() == 'Darwin':
+            user_info['os'] = 'Darwin'
+
         user_info['handle'] = input('* Codeforces Handle: ')
 
         mkdir = input('* mkdir option [true/false]: ')
