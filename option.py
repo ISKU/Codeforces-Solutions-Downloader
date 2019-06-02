@@ -39,7 +39,7 @@ class Option:
         return value
 
     def get_ext(self, language):
-        return {
+        extensions = {
             'GNU C': '.c',
             'GNU C11': '.c',
             'Clang++17 Diagnostics': '.cpp',
@@ -71,4 +71,8 @@ class Option:
             'JavaScript': '.js',
             'Node.js': '.js',
             'Q#': '.qs'
-        }[language]
+        }
+
+        if not language in extensions:
+            return True, 'unknown language'
+        return False, extensions[language]

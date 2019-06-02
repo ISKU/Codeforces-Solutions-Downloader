@@ -62,8 +62,14 @@ class Main:
 
             source_tree = self.option.source_tree(solved)
             source_name = self.option.source_name(solved)
-            file_path = '%s%s%s' % (source_tree, source_name, self.option.get_ext(language))
+            ext_error, source_ext = self.option.get_ext(language)
+            if ext_error:
+                print('\n* ERROR: get_ext, ' + source_ext)
+                print('* Failed to download the source (submission: %d, contest: %d, index: %s)\n' % (submission_id, contest_id, problem_id))
+                fail += 1
+                continue
 
+            file_path = '%s%s%s' % (source_tree, source_name, source_ext)
             if os.path.exists(file_path):
                 print('* source already exists (submission: %d, contest: %d, index: %s)' % (submission_id, contest_id, problem_id))
                 fail += 1
@@ -71,7 +77,7 @@ class Main:
        
             source_error, source = self.crawler.get_source(submission_id, contest_id)
             if source_error:
-                print(ERROR_FORMAT % ('get_source, ' + source))
+                print('\n* ERROR: get_source, ' + source)
                 print('* Failed to download the source (submission: %d, contest: %d, index: %s)\n' % (submission_id, contest_id, problem_id))
                 fail += 1
                 continue
