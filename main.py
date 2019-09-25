@@ -34,7 +34,7 @@ class Main:
             sys.exit('\n* ERROR: get_user_status, %s' % (user_status))
 
         for submission in user_status:
-            if not submission['verdict'] == 'OK':
+            if not submission['verdict'] == 'OK' or len(submission['problem']['tags']) == 0:
                 continue
 
             key = str(submission['contestId']) + submission['problem']['index']
